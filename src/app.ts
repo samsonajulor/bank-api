@@ -17,19 +17,15 @@ import { connectDB, connectTestDB } from './db/db'
 const app = express();
 dotenv.config()
 //documentation rendering
-import swaggerUI from 'swagger-ui-express'
-import YAML from 'yamljs'
-const swaggerDocument = YAML.load('./documentation.yaml')
+// import swaggerUI from 'swagger-ui-express'
+// import YAML from 'yamljs'
+// const swaggerDocument = YAML.load('./documentation.yaml')
 
-// view engine setup
-app.set('views', path.join(__dirname, '../views'));
-app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 console.log(process.env.NODE_ENV)
 if(process.env.NODE_ENV === 'test'){
@@ -59,17 +55,5 @@ app.use(function(err: HttpError, req: Request, res: Response, next: NextFunction
   res.status(err.status || 500);
   res.render('error');
 })
-
-// const start = async () => {
-//   try {
-//     await connectDB('mongodb+srv://samsonajulor:samson123@cluster0.df9lf.mongodb.net/transactionApi?retryWrites=true&w=majority');
-//     console.log('Connecected to DB')
-//   } catch (error) {
-//     console.log(error);
-//     process.exit(1)
-//   }
-// };
-
-// start();
 
 export default app
