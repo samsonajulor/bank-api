@@ -8,8 +8,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "start:dev": "nodemon ./bin/www",
-    "compile": "yarn tsc",
-    "compile:watch": "yarn tsc -w",
+    "build": "yarn tsc",
+    "build:watch": "yarn tsc -w",
     "test": "jest",
     "clean": "rm -rf dist && mkdir dist",
     "heroku-postbuild": "yarn clean && yarn build"
