@@ -1,0 +1,348 @@
+openapi: 3.0.0
+info:
+  title: TransferService
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://samson-ajulor-bank-api.herokuapp.com/transfer-service
+  variables: {}
+- url: https://samson-ajulor-bank-api.herokuapp.com/
+  variables: {}
+paths:
+  /transfer:
+    post:
+      tags:
+      - Transactions
+      summary: transfer
+      description: >-
+        /Transfer
+
+
+        This enables users to post a transfer request using the following inputs:
+
+
+        { "senderAccount": "0000000003", "receiverAccount": "0000000001", "amount": "95", "transferDescription": "transfer description"}
+
+
+        On posting, it returns the account details of both the sender and the receiver. It also returns the details of the transaction.
+
+
+        Sample Output:
+
+
+        { "message": "successful", "newTransaction": { "reference": "0000000003-2hpdi1iwnkyatvxpr-0000000001", "amount": 80, "receiverAccount": "0000000001", "senderAccount": "0000000003", "createdAt": "2022-01-12T00:52:21.999Z", "transferDescription": "transfer description", "_id": "61de2646c56e6e65c901c734", "__v": 0 }, "sender": { "_id": "61de1c7e47cd12c2eb802701", "accountNo": "0000000003", "balance": "4515", "createdAt": "2022-01-12T00:10:38.283Z", "userId": "61de1c7e47cd12c2eb8026fe", "__v": 0, "updatedAt": "2022-01-12T00:51:58.143Z" }, "recepient": { "_id": "61de182136c5b39fe4524151", "accountNo": "0000000001", "balance": "5245", "createdAt": "2022-01-11T23:52:01.442Z", "userId": "61de182136c5b39fe452414e", "__v": 0, "updatedAt": "2022-01-12T00:51:58.143Z" }}
+      operationId: transfer
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://samson-ajulor-bank-api.herokuapp.com/transfer-service
+        variables: {}
+  /transaction/{accountNumber}:
+    get:
+      tags:
+      - Transactions
+      summary: user-transactions
+      description: >-
+        /transactions/:accountNo
+
+
+        This route takes in the transactions as the params and returns all the transactions made by a particular user.
+      operationId: user-transactions
+      parameters:
+      - name: accountNumber
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 'null'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://samson-ajulor-bank-api.herokuapp.com/transfer-service
+        variables: {}
+  /transaction/debit/{accountNumber}:
+    get:
+      tags:
+      - Transactions
+      summary: user-transactions(DEBIT)
+      description: >-
+        /transaction/debit/:accountNo
+
+
+        this route also takes in the accountNo as the params and returns all debit transactions made by the user with the specified account no.
+      operationId: user-transactions(DEBIT)
+      parameters:
+      - name: accountNumber
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 'null'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://samson-ajulor-bank-api.herokuapp.com/transfer-service
+        variables: {}
+  /transaction/credit/{accountNumber}:
+    get:
+      tags:
+      - Transactions
+      summary: user-transactions (CREDIT)
+      description: >-
+        /transaction/credit/:accountNo
+
+
+        this route also takes in the accountNo as the params and returns all credit transactions made by the user with the specified account no
+      operationId: user-transactions(CREDIT)
+      parameters:
+      - name: accountNumber
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 'null'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://samson-ajulor-bank-api.herokuapp.com/transfer-service
+        variables: {}
+  /{accountNumber}:
+    get:
+      tags:
+      - Balances
+      summary: account-balance
+      description: >-
+        /balance/account/:accountNo
+
+
+        This route returns the account details of a particular user. It takes in the account no of that user as the params. The userId refers to the id of the user created on registration
+
+
+        { "message": "successful", "accountBalance": { "_id": "61de182136c5b39fe4524151", "accountNo": "0000000001", "balance": "5000", "createdAt": "2022-01-11T23:52:01.442Z", "userId": "61de182136c5b39fe452414e", "__v": 0 }}
+      operationId: account-balance
+      parameters:
+      - name: accountNumber
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 'null'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://samson-ajulor-bank-api.herokuapp.com/
+        variables: {}
+  /balance/{userId}:
+    get:
+      tags:
+      - Balances
+      summary: user-balance
+      description: >-
+        /balance/user/:userId
+
+
+        This route returns the account details of a particular user. It takes in the id of that user as the params. The userId refers to the id of the user created on registration
+
+
+        Sample output:
+
+
+        { "message": "successful", "accountBalance": { "_id": "61de182136c5b39fe4524151", "accountNo": "0000000001", "balance": "5000", "createdAt": "2022-01-11T23:52:01.442Z", "userId": "61de182136c5b39fe452414e", "__v": 0 }}
+      operationId: user-balance
+      parameters:
+      - name: userId
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 'null'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://samson-ajulor-bank-api.herokuapp.com/transfer-service
+        variables: {}
+  /balance:
+    get:
+      tags:
+      - Balances
+      summary: all-account-balance
+      description: >-
+        /balance
+
+
+        This route returns the account details of all users.
+
+
+        Sample output:
+
+
+        { "_id": "61de19569edd19c907388deb", "accountNo": "0000000002", "balance": "5000", "createdAt": "2022-01-11T23:57:10.618Z", "userId": "61de19569edd19c907388de8", "__v": 0 }
+      operationId: all-account-balance
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: https://samson-ajulor-bank-api.herokuapp.com/transfer-service
+        variables: {}
+  /signup:
+    post:
+      tags:
+      - Users
+      summary: signup
+      description: >-
+        /signup
+
+
+        This routes creates a new user with automatically generated account no and assigns a balance of 5000NGN on signup.
+
+
+        Sample Input:
+
+
+        { "firstName": "Sammmy", "lastName": "Baddo", "DOB": "21/01/1993", "email": "sammybaddo@gmail.com", "phoneNo": "08130553102", "password": "123456"}
+
+
+        Sample Output:
+
+
+        { "message": "success! You have received a balance of 5000NGN", "userDetails": { "firstName": "Sammmy", "lastName": "Baddo", "DOB": "21/01/1993", "email": "sammybaddo@gmail.com", "phoneNo": "08130553102", "_id": "61de1cc247cd12c2eb802716" }, "accountBalance": { "accountNo": "0000000007", "balance": "5000", "createdAt": "2022-01-12T00:11:46.595Z", "userId": "61de1cc247cd12c2eb802716" }}
+      operationId: signup
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signuprequest'
+            example:
+              firstName: Sam
+              lastName: Aju
+              DOB: 21/01/1993
+              email: samajul@gmail.com
+              phoneNo: 08130553102
+              password: '123456'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://samson-ajulor-bank-api.herokuapp.com/transfer-service
+        variables: {}
+  /login:
+    post:
+      tags:
+      - Users
+      summary: login
+      description: >-
+        /login
+
+
+        Performs basic login verification with email and password.
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/loginrequest'
+            example:
+              email: samaju@gmail.com
+              password: '123456'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+      - url: https://samson-ajulor-bank-api.herokuapp.com/transfer-service
+        variables: {}
+components:
+  schemas:
+    signuprequest:
+      title: signuprequest
+      required:
+      - firstName
+      - lastName
+      - DOB
+      - email
+      - phoneNo
+      - password
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        DOB:
+          type: string
+        email:
+          type: string
+        phoneNo:
+          type: string
+        password:
+          type: string
+      example:
+        firstName: Sam
+        lastName: Aju
+        DOB: 21/01/1993
+        email: samajul@gmail.com
+        phoneNo: 08130553102
+        password: '123456'
+    loginrequest:
+      title: loginrequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: samaju@gmail.com
+        password: '123456'
+security:
+- {}
+tags:
+- name: Transactions
+- name: Balances
+- name: Users

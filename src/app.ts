@@ -17,9 +17,9 @@ import { connectDB, connectTestDB } from './db/db'
 const app = express();
 dotenv.config()
 //documentation rendering
-// import swaggerUI from 'swagger-ui-express'
-// import YAML from 'yamljs'
-// const swaggerDocument = YAML.load('./documentation.yaml')
+import swaggerUI from 'swagger-ui-express'
+import YAML from 'yamljs'
+const swaggerDocument = YAML.load('document.yaml')
 
 
 app.use(logger('dev'));
@@ -35,11 +35,13 @@ else{
   connectDB()
 }
 
+
+
 app.use('/', indexRouter)
 app.use('/', usersRouter)
 app.use('/', transactionsRouter)
 app.use('/', balancesRouter)
-
+app.use('/transfer-service', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 // catch 404 and forward to error handler
 app.use(function(req: Request, res: Response, next: NextFunction) {
   next(createError(404));
