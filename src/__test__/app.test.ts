@@ -1,10 +1,7 @@
 import supertest from 'supertest'
 import app from '../app'
 
-let token: string;
-let authorId: string;
-let bookId: string;
-let ID: string;
+let token: string
 
 describe("Auth", () => {
  const data = {
@@ -25,7 +22,7 @@ describe("Auth", () => {
   const response = await supertest(app)
    .post("/login")
    .send({ email: data.email, password: data.password });
-  token = response.body.user.token;
+  token = response.body.user.token
   expect(response.status).toBe(201);
   expect(response.body.message).toBe("login successful");
  });

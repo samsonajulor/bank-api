@@ -12,8 +12,14 @@ import dotenv from 'dotenv'
 
 import { connectDB, connectTestDB } from './db/db'
 
+
+
 const app = express();
 dotenv.config()
+//documentation rendering
+import swaggerUI from 'swagger-ui-express'
+import YAML from 'yamljs'
+const swaggerDocument = YAML.load('./documentation.yaml')
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
