@@ -4,9 +4,9 @@ import { protectRoute } from '../controllers/auth.controller'
 const router = express.Router()
 
 
-router.get('/balance', protectRoute, getAllBalance)
-router.get('/balance/user/:userId', protectRoute, getUserBalance)
-router.get('/balance/account/:accountNumber', getAccountBalance)
+router.get('/transfer-service/balance', protectRoute, getAllBalance)
+router.get('/transfer-service/balance/user/:userId', protectRoute, getUserBalance)
+router.get('/transfer-service/balance/account/:accountNumber', getAccountBalance)
 
 
 export default router
